@@ -22,7 +22,10 @@ jobs:
         toolchain: stable
         profile: minimal
         override: true
-
+        
+    - name: install rust
+      run: make install
+      
     - name: Show Rust versions
       run: make rust-version
 
