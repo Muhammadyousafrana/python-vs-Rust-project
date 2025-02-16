@@ -2,28 +2,28 @@
 
 rust-version:
 	@echo "Rust command utility versions:"
-	rustc --version 			# Rust compiler
-	cargo --version				# Rust package manager
-	rustfmt --version			# Rust code formatter
-	rustup --version			# Rust toolchain manager
-	clippy-driver --version 	# Rust linter
+	rustc --version			# Rust compiler
+	cargo --version			# Rust package manager
+	rustfmt --version		# Rust code formatter
+	rustup --version		# Rust toolchain manager
+	clippy-driver --version	# Rust linter
 
 install:
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 format:
-	cargo fmt --quiet
+	cargo fmt --manifest-path ./Cargo.toml --quiet
 
 lint:
-	cargo clippy --quiet
+	cargo clippy --manifest-path ./Cargo.toml --quiet
 
 test:
-	cargo test
+	cargo test --manifest-path ./Cargo.toml --quiet
 
 run:
-	cargo run
+	cargo run --manifest-path ./Cargo.toml
 
 release:
-	cargo build --release
+	cargo build --manifest-path ./Cargo.toml --release
 
 all: format lint test run
