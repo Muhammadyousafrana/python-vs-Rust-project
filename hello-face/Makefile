@@ -12,18 +12,18 @@ install:
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 format:
-	cargo fmt --manifest-path ./Cargo.toml --quiet
+	cargo fmt --quiet
 
 lint:
-	cargo clippy --manifest-path ./Cargo.toml --quiet
+	cargo clippy --quiet
 
 test:
-	cargo test --manifest-path ./Cargo.toml --quiet
+	cargo test --quiet
 
 run:
-	cargo run --manifest-path ./Cargo.toml
+	cargo run Cargo.toml
 
 release:
-	cargo build --manifest-path ./Cargo.toml --release
+	cargo build --release
 
 all: format lint test run
