@@ -23,8 +23,8 @@ jobs:
         profile: minimal
         override: true
 
-    - name: Show Rust versions
-      run: make rust-version
+    # - name: Show Rust versions
+    #   run: make rust-version
 
     - name: Format code
       run: make format
