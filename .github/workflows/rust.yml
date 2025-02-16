@@ -25,3 +25,15 @@ jobs:
 
     - name: Show Rust versions
       run: make -C hello-face rust-version
+
+    - name: Format code
+      run: make -C hello-face format
+
+    - name: Lint code
+      run: make -C hello-face lint
+
+    - name: Run tests
+      run: make -C hello-face test
+
+    - name: Build release
+      run: make -C hello-face release
