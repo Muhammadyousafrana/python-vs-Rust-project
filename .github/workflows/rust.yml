@@ -1,29 +1,37 @@
-.PHONY: rust-version install format lint test run release all
+name: Rust CI
 
-rust-version:
-	@echo "Rust command utility versions:"
-	rustc --version			# Rust compiler
-	cargo --version			# Rust package manager
-	rustfmt --version		# Rust code formatter
-	rustup --version		# Rust toolchain manager
-	clippy-driver --version	# Rust linter
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
-install:
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-format:
-	cargo fmt --manifest-path hello/Cargo.toml --quiet
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-lint:
-	cargo clippy --manifest-path hello/Cargo.toml --quiet
+    - name: Install Rust
+      run: |
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+        source $HOME/.cargo/env
 
-test:
-	cargo test --manifest-path hello/Cargo.toml --quiet
+    - name: Show Rust versions
+      run: make rust-version
 
-run:
-	cargo run --manifest-path hello/Cargo.toml
+    - name: Format code
+      run: make format
 
-release:
-	cargo build --manifest-path hello/Cargo.toml --release
+    - name: Lint code
+      run: make lint
 
-all: format lint test run
+    - name: Run tests
+      run: make test
+
+    - name: Build release
+      run: make release
